@@ -12,7 +12,7 @@ use pinocchio_token::{
 use crate::{constants::ESCROW_SEED, states::Escrow};
 
 pub fn process_refund(accounts: &[AccountInfo]) -> ProgramResult {
-    let [maker, mint_a, mint_b, maker_ata_a, vault, escrow, system_program, token_program] =
+    let [maker, mint_a, mint_b, maker_ata_a, vault, escrow, system_program, token_program, _] =
         accounts
     else {
         return Err(ProgramError::NotEnoughAccountKeys);

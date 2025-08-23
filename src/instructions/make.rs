@@ -23,7 +23,7 @@ impl MakeInstructionData {
 }
 
 pub fn process_make(accounts: &[AccountInfo], data: &[u8]) -> ProgramResult {
-    let [maker, mint_a, mint_b, maker_ata_a, vault, escrow, system_program, token_program] =
+    let [maker, mint_a, mint_b, maker_ata_a, vault, escrow, system_program, token_program, _] =
         accounts
     else {
         return Err(ProgramError::NotEnoughAccountKeys);

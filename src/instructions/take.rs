@@ -9,7 +9,7 @@ use pinocchio_token::{instructions::Transfer, state::TokenAccount};
 use crate::{constants::ESCROW_SEED, states::Escrow};
 
 pub fn process_take(accounts: &[AccountInfo]) -> ProgramResult {
-    let [taker, maker, mint_a, mint_b, taker_ata_a, taker_ata_b, maker_ata_b, vault, escrow, system_program, token_program] =
+    let [taker, maker, mint_a, mint_b, taker_ata_a, taker_ata_b, maker_ata_b, vault, escrow, system_program, token_program, _] =
         accounts
     else {
         return Err(ProgramError::NotEnoughAccountKeys);
