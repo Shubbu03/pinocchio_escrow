@@ -1,8 +1,8 @@
 #![allow(unexpected_cfgs)]
 
-use crate::instructions::{self, ProgramInstruction};
+use crate::instructions::{self, EscrowInstruction};
 use pinocchio::{
-    account_info::AccountInfo, default_panic_handler, msg, no_allocator, program_entrypoint,
+    account_info::AccountInfo, default_panic_handler, no_allocator, program_entrypoint,
     program_error::ProgramError, pubkey::Pubkey, ProgramResult,
 };
 
@@ -23,10 +23,9 @@ fn process_instruction(
         .split_first()
         .ok_or(ProgramError::InvalidInstructionData)?;
 
-    match ProgramInstruction::try_from(ix_disc)? {
-        ProgramInstruction::InitializeState => {
-            msg!("initialize");
-            instructions::initialize(accounts, instruction_data)
-        }
+    match EscrowInstruction::try_from(ix_disc)? {
+        EscrowInstruction::MakeOffer => instructions::process_make(accounts, &instruction_data),
+        EscrowInstruction::TakeOffer => instructions::process_take(accounts),
+        EscrowInstruction::Refund => instructions::process_refund(accounts),
     }
 }

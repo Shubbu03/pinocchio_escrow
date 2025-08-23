@@ -1,12 +1,10 @@
-use super::utils::{load_acc_mut_unchecked, DataLen};
+use super::utils::DataLen;
 use pinocchio::{
-    account_info::AccountInfo,
     program_error::ProgramError,
     pubkey::{self, Pubkey},
-    ProgramResult,
 };
 
-use crate::{errors::MyProgramError, instructions::Initialize};
+use crate::errors::MyProgramError;
 
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -27,14 +25,6 @@ impl MyState {
         if derived != *pda {
             return Err(MyProgramError::PdaMismatch.into());
         }
-        Ok(())
-    }
-
-    pub fn initialize(my_stata_acc: &AccountInfo, ix_data: &Initialize) -> ProgramResult {
-        let my_state =
-            unsafe { load_acc_mut_unchecked::<MyState>(my_stata_acc.borrow_mut_data_unchecked()) }?;
-
-        my_state.owner = ix_data.owner;
         Ok(())
     }
 }
